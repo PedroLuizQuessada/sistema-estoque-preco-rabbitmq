@@ -1,9 +1,9 @@
 package com.example.sistemaestoqueprecorabbitmq.controllers;
 
-import com.example.libsistemaestoquepreco.dtos.EstoqueDto;
 import com.example.sistemaestoqueprecorabbitmq.services.RabbitMQService;
+import constants.RabbitMQConstants;
+import dtos.EstoqueDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,12 +18,9 @@ public class EstoqueController {
     @Autowired
     private RabbitMQService rabbitMQService;
 
-    @Value("${rabbitmq.fila.estoque.nome}")
-    private String filaEstoqueNome;
-
     @PutMapping
     private ResponseEntity<Void> alterarEstoque(@RequestBody EstoqueDto estoqueDto) {
-        rabbitMQService.enviaMensagem(filaEstoqueNome, estoqueDto);
+        rabbitMQService.enviaMensagem(RabbitMQConstants.FILA_ESTOQUE_NOME, estoqueDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

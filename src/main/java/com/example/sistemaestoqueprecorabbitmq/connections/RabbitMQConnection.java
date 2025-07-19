@@ -1,5 +1,6 @@
 package com.example.sistemaestoqueprecorabbitmq.connections;
 
+import constants.RabbitMQConstants;
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
@@ -13,12 +14,6 @@ public class RabbitMQConnection {
 
     @Value("${rabbitmq.exchange.nome}")
     private String nomeExchange;
-
-    @Value("${rabbitmq.fila.estoque.nome}")
-    private String filaEstoqueNome;
-
-    @Value("${rabbitmq.fila.preco.nome}")
-    private String filaPrecoNome;
 
     private final AmqpAdmin amqpAdmin;
 
@@ -40,8 +35,8 @@ public class RabbitMQConnection {
 
     @PostConstruct
     private void adiciona() {
-        Queue filaEstoque = this.fila(filaEstoqueNome);
-        Queue filaPreco = this.fila(filaPrecoNome);
+        Queue filaEstoque = this.fila(RabbitMQConstants.FILA_ESTOQUE_NOME);
+        Queue filaPreco = this.fila(RabbitMQConstants.FILA_PRECO_NOME);
 
         DirectExchange troca = this.trocaDireta();
 

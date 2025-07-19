@@ -1,9 +1,9 @@
 package com.example.sistemaestoqueprecorabbitmq.controllers;
 
-import com.example.libsistemaestoquepreco.dtos.PrecoDto;
 import com.example.sistemaestoqueprecorabbitmq.services.RabbitMQService;
+import constants.RabbitMQConstants;
+import dtos.PrecoDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,12 +18,9 @@ public class PrecoController {
     @Autowired
     private RabbitMQService rabbitMQService;
 
-    @Value("${rabbitmq.fila.preco.nome}")
-    private String filaPrecoNome;
-
     @PutMapping
     private ResponseEntity<Void> alterarPreco(@RequestBody PrecoDto precoDto) {
-        rabbitMQService.enviaMensagem(filaPrecoNome, precoDto);
+        rabbitMQService.enviaMensagem(RabbitMQConstants.FILA_PRECO_NOME, precoDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
