@@ -1,6 +1,6 @@
 package com.example.sistemaestoqueprecorabbitmq.controllers;
 
-import com.example.sistemaestoqueprecorabbitmq.dtos.EstoqueDto;
+import com.example.libsistemaestoquepreco.dtos.EstoqueDto;
 import com.example.sistemaestoqueprecorabbitmq.services.RabbitMQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
